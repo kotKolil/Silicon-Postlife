@@ -8,7 +8,8 @@ SOURCES = $(wildcard $(SRCDIR)/*.c)
 OBJECTS = $(patsubst $(SRCDIR)/%.c,$(BUILDDIR)/%.o,$(SOURCES))
 
 #compiler options
-CFLAGS = -Wall -std=c99 -g -O2
+#CFLAGS = -Wall -std=c99 -g -O2
+CFLAGS = -Wall -std=c99 -g
 LDFLAGS = 
 LIBS = -lraylib -lm -lpthread -ldl -lcsv
 

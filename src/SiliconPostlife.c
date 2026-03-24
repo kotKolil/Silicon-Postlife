@@ -20,12 +20,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <stdint.h>
 #include "c_cam_upd.h"
-//------------------------------------------------------------------------------------
-// Program main entry point
-//------------------------------------------------------------------------------------
-
-// game settings
+#include "ILevel.h"
+#include "LevelLoader.h"
 
 #define T_FPS 60
 #define C_FOV 45.0f
@@ -34,7 +32,6 @@
 #define MAP_H 24
 #define MAP_W 24
 
-// bindings
 #define KEY_FORWARD KEY_W
 #define KEY_BACK KEY_S
 #define KEY_LEFT KEY_A
@@ -47,74 +44,30 @@
 
 int main(void)
 {
-    // Initialization
-    //--------------------------------------------------------------------------------------
-    const int screenWidth = 800;
-    const int screenHeight = 450;
+    const int screenWidth = 1920;
+    const int screenHeight = 1080;
+	uint8_t currentLevel = 0;
+	uint8_t lastLevel = 0;
 
     InitWindow(screenWidth, screenHeight, "Silicon Postlife");
-
-    // Define the camera to look into our 3d world
+	SetWindowState(FLAG_FULLSCREEN_MODE);
     Camera3D camera = { 0 };
-    camera.position = (Vector3){ 10.0f, 2.0f, 10.0f }; // Camera position
-    camera.target = (Vector3){ 0.0f, 0.0f, 0.0f };      // Camera looking at point
-    camera.up = (Vector3){ 0.0f, 1.0f, 0.0f };          // Camera up vector (rotation towards target)
-    camera.fovy = C_FOV;                                // Camera field-of-view Y
-    camera.projection = CAMERA_PERSPECTIVE;             // Camera projection type
-
-    DisableCursor();                    // Limit cursor to relative movement inside the window
-
-    SetTargetFPS(T_FPS);             // Set game to run at 60 frames-per-second
-    //--------------------------------------------------------------------------------------
-
-
-
-
-    // Main game loop
-    while (!WindowShouldClose())        // Detect window close button or ESC key
+    camera.position = (Vector3){ 10.0f, 2.0f, 10.0f };
+    camera.target = (Vector3){ 0.0f, 0.0f, 0.0f };
+    camera.up = (Vector3){ 0.0f, 1.0f, 0.0f };
+    camera.fovy = C_FOV;
+    camera.projection = CAMERA_PERSPECTIVE;
+    DisableCursor();
+    SetTargetFPS(T_FPS);
+    while (!WindowShouldClose())
     {
-        // Update
-        //----------------------------------------------------------------------------------
         CustomCameraUpdate(&camera);
-
-        //----------------------------------------------------------------------------------
-
-        // Draw
-        //----------------------------------------------------------------------------------
         BeginDrawing();
-
-            ClearBackground(BLACK);
-
-            BeginMode3D(camera);
-
-				//drawing x lines
-				for (int i = -MAP_H; i < MAP_H; i += 1) {
-					DrawLine3D(
-						(Vector3){i, 0, -MAP_H},
-						(Vector3){i, 0, MAP_H},
-						GREEN
-					);	
-				}
-                //drawing y lines
-                for (int i = -MAP_W;i < MAP_W; i += 1) {
-                	DrawLine3D(
-						(Vector3){MAP_W, 0, i},
-						(Vector3){-MAP_W, 0, i},
-						GREEN               		
-                	);
-                }
-            EndMode3D();
-            char str[20];
-            sprintf(str, "%d", GetFPS());
-            DrawText( str, 20, 20, 10, GREEN );
+        if (currentLevel != lastLevel || currentLevel == 00 ) {
+     		LoadLevel(&currentLevel, camera);		
+        }
         EndDrawing();
-        //----------------------------------------------------------------------------------
     }
-
-    // De-Initialization
-    //--------------------------------------------------------------------------------------
-    CloseWindow();        // Close window and OpenGL context
-    //--------------------------------------------------------------------------------------
-
+    CloseWindow();
     return 0;
 }
