@@ -22,7 +22,6 @@
 #include <math.h>
 #include <stdint.h>
 #include "c_cam_upd.h"
-#include "ILevel.h"
 #include "LevelLoader.h"
 
 #define T_FPS 60
@@ -46,9 +45,8 @@ int main(void)
 {
     const int screenWidth = 1920;
     const int screenHeight = 1080;
-	uint8_t currentLevel = 0;
-	uint8_t lastLevel = 0;
 
+	
     InitWindow(screenWidth, screenHeight, "Silicon Postlife");
 	SetWindowState(FLAG_FULLSCREEN_MODE);
     Camera3D camera = { 0 };
@@ -59,13 +57,13 @@ int main(void)
     camera.projection = CAMERA_PERSPECTIVE;
     DisableCursor();
     SetTargetFPS(T_FPS);
+	InitLevels();
     while (!WindowShouldClose())
     {
-        CustomCameraUpdate(&camera);
-        BeginDrawing();
-        if (currentLevel != lastLevel || currentLevel == 00 ) {
-     		LoadLevel(&currentLevel, camera);		
-        }
+        BeginDrawing();	
+        
+        ClearBackground(BLACK);
+       	LoadLevel(&camera);
         EndDrawing();
     }
     CloseWindow();

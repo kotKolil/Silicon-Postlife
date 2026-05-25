@@ -2,11 +2,17 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdint.h>
-#include "ILevel.h"
+#include "Scene.h"
 #include "c_cam_upd.h"
 
-void RenderTest(Camera3D camera) {
-    BeginMode3D(camera);
+void testRender(uint8_t *levelN, Camera3D *cam) {
+	BeginMode3D(*cam);
+	ClearBackground(BLACK);
+    Camera2D camera2d = { 0 };
+    camera2d.target = (Vector2){ 0.0f, 0.0f };      // Точка, на которую смотрит камера
+    camera2d.offset = (Vector2){ 1920/2, 1080/2 };  // Центрируем камеру на экране 1920x1080
+    camera2d.rotation = 0.0f;                       // Угол поворота
+    camera2d.zoom = 1.0f; 
     
     for (int i = -24; i < 24; i += 1) {
         DrawLine3D(
@@ -25,17 +31,15 @@ void RenderTest(Camera3D camera) {
     }
     
     EndMode3D();
+    BeginMode2D(camera2d);
     
     char str[20];
     sprintf(str, "%d", GetFPS());
     DrawText(str, 20, 20, 10, GREEN);
+	EndMode2D();
 }
 
-void test(Camera3D camera) {
-    ILevel menu;
-    menu.render = RenderTest;
-    
-    if (menu.render != NULL) {
-        menu.render(camera);
-    }
-}
+Scene test = {
+	.n = 2,
+	.render = testRender,
+};

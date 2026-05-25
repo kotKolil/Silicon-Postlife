@@ -5,6 +5,10 @@
 
 typedef struct Camera3D Camera3D;
 
-void LoadLevel(uint8_t *n, Camera3D camera);
+void LoadLevel(Camera3D *camera);
+void InitLevels();
 
+extern uint8_t levelN;
+extern uint8_t levelMax;
+ 
 #endif

@@ -1,36 +1,39 @@
-#project settings
-TARGET = SiliconPostlife
+TARGET = SiliconPostLife
 CC = gcc
 SRCDIR = src
 BUILDDIR = build
 BINDIR = bin
+
 SOURCES = $(wildcard $(SRCDIR)/*.c)
-OBJECTS = $(patsubst $(SRCDIR)/%.c,$(BUILDDIR)/%.o,$(SOURCES))
+OBJECTS = $(patsubst $(SRCDIR)/%.c, $(BUILDDIR)/%.o, $(SOURCES))
 
-#compiler options
-#CFLAGS = -Wall -std=c99 -g -O2
-CFLAGS = -Wall -std=c99 -g
-LDFLAGS = 
-LIBS = -lraylib -lm -lpthread -ldl -lcsv
+SCENE_SOURCES = $(wildcard $(SRCDIR)/scenes/*.c)
+SCENE_LIBS = $(patsubst $(SRCDIR)/scenes/%.c, $(BINDIR)/scenes/%.so, $(SCENE_SOURCES))
 
-#preparing
+CFLAGS = -Wall -std=c99 -g -fPIC -I$(SRCDIR) $(VERSION_FLAG)
+LIBS = -lraylib -lm -lpthread -ldl -lcsv -rdynamic
+
 prepare:
 	@mkdir -p $(BUILDDIR)
-	@mkdir -p $(BINDIR)
+	@mkdir -p $(BINDIR)/scenes
+	@cp $(SRCDIR)/scenes/scenes.inf $(BINDIR)/scenes/ 2>/dev/null || true
 
 $(BUILDDIR)/%.o: $(SRCDIR)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(BINDIR)/$(TARGET): $(OBJECTS)
 	$(CC) $(OBJECTS) -o $@ $(LIBS)
-	
-clean:
-	#@rm -rf $(BINDIR)
-	@rm -rf $(BUILDDIR)
 
-all: prepare $(BINDIR)/$(TARGET)   # all зависит от бинаря
-	@echo "OK"
+$(BINDIR)/scenes/%.so: $(SRCDIR)/scenes/%.c
+	@mkdir -p $(BINDIR)/scenes
+	$(CC) $(CFLAGS) -shared $< -o $@
+	@chmod +x $@
+
+clean:
+	rm -rf $(BUILDDIR) $(BINDIR)
+
+all: prepare $(BINDIR)/$(TARGET) $(SCENE_LIBS)
+	@echo "--- Build complete ---"
 
 run: all
 	./$(BINDIR)/$(TARGET)
-
