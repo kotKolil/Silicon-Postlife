@@ -12,24 +12,6 @@ Scene *scenes = NULL;
 
 void LoadLevel(uint8_t *levelCurrent, Camera3D *camera) {
     printf("loading level %d\n", *levelCurrent);    
-	int temp = 0;
-	while ( scenes[temp].n != *levelCurrent && temp < sizeof(*scenes)/sizeof(Scene) ) {
-		temp++;
-	}
-	if (temp == sizeof(*scenes)/sizeof(Scene) ) {
-		return;
-	}
-	char path[256]; 
-	snprintf(path, sizeof(path), "bin/scenes/%s.so", scenes[temp].name);
-	void* handle = dlopen(path, RTLD_LAZY);
-	if (!handle) {
-		    printf("Failed to load library: %s\n", dlerror());
-		    return;
-		}
-	Scene temp_scene = dlsym(handle, scenes[temp].name);
-	if (level) {
-	    temp_scene->render; // ЗАПУСКАЕМ!
-	}
 }
 
 
@@ -43,16 +25,30 @@ void InitLevels() {
 	char name[64];
 	int id = 0;
 	int LevelsN = 0;
+	char path[256];
 	
 	while (  fscanf(f, "%s %d",name, &id ) == 2 ) {
 		LevelsN ++;
 		Scene *temp = realloc(scenes, LevelsN * sizeof(Scene));
 		if (temp != NULL) {
 			scenes = temp;
-			strncpy(scenes[LevelsN - 1].name, name, sizeof(scenes[0].name) - 1);
-			scenes[LevelsN - 1].name[sizeof(scenes[0].name) - 1] = '\0';
-			scenes[LevelsN - 1].n = id;
-			printf("loaded %s\n", name);
+			strncpy(scenes[LevelsN - 1].name, name, sizeof(scenes[LevelsN - 1].name) - 1);
+			void* handle = dlopen(path, RTLD_LAZY);
+		
+			if (!handle) {
+				printf("Failed to load Scene: %s\n", dlerror());
+				return;
+			}
+			Scene * temp_scene = dlsym(handle, scenes[LevelsN - 1].name);
+			printf("loading level %s\n", name);
+			if (temp_scene != NULL) {
+				scenes[LevelsN - 1].n = temp_scene->n;
+				scenes[LevelsN - 1].render = temp_scene->render;
+				printf("Loaded Scene %s, Id %d \n", name, temp_scene->n);
+			}
+			else {
+				printf("failed to load level\n");
+			}
 		}
 	}
 }

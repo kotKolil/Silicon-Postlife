@@ -56,7 +56,7 @@ void  BRender (uint8_t *levelN, Camera3D *cam) {
 	}
 }
 
-Scene bootan =  { 
-	.n = 0,
+__attribute__((visibility("default"))) Scene bootan =  { 
+	.n = 1,
 	.render = BRender,
 };

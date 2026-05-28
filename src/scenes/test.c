@@ -39,7 +39,7 @@ void testRender(uint8_t *levelN, Camera3D *cam) {
 	EndMode2D();
 }
 
-Scene test = {
+__attribute__((visibility("default"))) Scene test = {
 	.n = 2,
 	.render = testRender,
 };

@@ -1,0 +1,5 @@
+cls=clear
+edit-in-kitty='kitten edit-in-kitty'
+md=mkdir
+run-help=man
+which-command=whence

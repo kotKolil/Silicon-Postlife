@@ -10,7 +10,7 @@ OBJECTS = $(patsubst $(SRCDIR)/%.c, $(BUILDDIR)/%.o, $(SOURCES))
 SCENE_SOURCES = $(wildcard $(SRCDIR)/scenes/*.c)
 SCENE_LIBS = $(patsubst $(SRCDIR)/scenes/%.c, $(BINDIR)/scenes/%.so, $(SCENE_SOURCES))
 
-CFLAGS = -Wall -std=c99 -g -fPIC -I$(SRCDIR) $(VERSION_FLAG)
+CFLAGS = -g -I$(SRCDIR) $(VERSION_FLAG)
 LIBS = -lraylib -lm -lpthread -ldl -lcsv -rdynamic
 
 prepare:

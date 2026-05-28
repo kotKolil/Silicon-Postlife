@@ -24,7 +24,7 @@ void  MRender (uint8_t *levelN, Camera3D *cam) {
 	}
 }
 
-Scene menu =  { 
+__attribute__((visibility("default"))) Scene menu =  { 
 	.n = 0,
 	.render = MRender,
 };
