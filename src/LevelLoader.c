@@ -6,17 +6,18 @@
 #include <string.h>
 #include <dlfcn.h>
 
-static const uint8_t levelMax = 7;
+static const int  levelMax = 7;
 
 Scene *scenes = NULL;
 
-void LoadLevel(uint8_t *levelCurrent, Camera3D *camera) {
-    printf("loading level %d\n", *levelCurrent);    
+void LoadLevel(int *levelCurrent, Camera3D *camera) {
+    printf("loading level %d\n", *levelCurrent);
+	scenes[*levelCurrent].render( levelCurrent, camera);
 }
 
 
 void InitLevels() {
-	FILE *f = fopen("./bin/scenes/scenes.inf","r");
+	FILE *f = fopen("scenes/scenes.inf","r");
 	if (!f) {
 		printf("error, scenes.inf not found\n");
 	 	return;
@@ -25,7 +26,7 @@ void InitLevels() {
 	char name[64];
 	int id = 0;
 	int LevelsN = 0;
-	char path[256];
+	char path[256] = "scenes/";
 	
 	while (  fscanf(f, "%s %d",name, &id ) == 2 ) {
 		LevelsN ++;
@@ -33,8 +34,9 @@ void InitLevels() {
 		if (temp != NULL) {
 			scenes = temp;
 			strncpy(scenes[LevelsN - 1].name, name, sizeof(scenes[LevelsN - 1].name) - 1);
+			snprintf(path, sizeof(path), "scenes/%s.so", name); 
 			void* handle = dlopen(path, RTLD_LAZY);
-		
+			printf("loading binary lib \n");		
 			if (!handle) {
 				printf("Failed to load Scene: %s\n", dlerror());
 				return;

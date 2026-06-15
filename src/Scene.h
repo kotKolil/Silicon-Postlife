@@ -6,6 +6,6 @@ typedef struct Camera3D Camera3D;
 
 typedef struct {
 	int n;
-	void (*render)(uint8_t *levelCurrent, Camera3D *cam);
+	void (*render)(int *levelCurrent, Camera3D *cam);
 	char name[64];
 } Scene;

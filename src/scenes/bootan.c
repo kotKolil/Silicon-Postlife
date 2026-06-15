@@ -6,7 +6,7 @@
 
 #define LOGS_COUNT (sizeof(boot_logs) / sizeof(boot_logs[0]))
 
-void  BRender (uint8_t *levelN, Camera3D *cam) {
+void  BRender (int *levelN, Camera3D *cam) {
 	static const char *boot_logs[] = {
 		"1991.03.04 03:32:43 [OK] System V started",
 		"1991.03.04 03:32:43 [0K] device /dev/serial inited",

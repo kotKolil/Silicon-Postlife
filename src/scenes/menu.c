@@ -10,7 +10,7 @@ static Font customFont;
 static bool FontLoaded = false;
 
 
-void  MRender (uint8_t *levelN, Camera3D *cam) {
+void  MRender (int *levelN, Camera3D *cam) {
 	if (!FontLoaded) {
 		customFont = LoadFontEx("./res/fonts/ShareTechMono-Regular/ShareTechMono-Regular.ttf", 32, NULL, 0);
 		FontLoaded = true;

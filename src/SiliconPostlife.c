@@ -58,12 +58,13 @@ int main(void)
     DisableCursor();
     SetTargetFPS(T_FPS);
 	InitLevels();
+	int CurrentLevel = 0;
     while (!WindowShouldClose())
     {
         BeginDrawing();	
-        
+        printf("%d\n", CurrentLevel);
         ClearBackground(BLACK);
-       	LoadLevel(&camera);
+	       	LoadLevel(&CurrentLevel,&camera);
         EndDrawing();
     }
     CloseWindow();
