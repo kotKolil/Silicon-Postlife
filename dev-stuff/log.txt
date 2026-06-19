@@ -1,0 +1,82 @@
+gcc -g -Isrc  -c src/LevelLoader.c -o build/LevelLoader.o
+gcc  build/c_cam_upd.o  build/LevelLoader.o  build/SiliconPostlife.o -o bin/SiliconPostLife -lraylib -lm -lpthread -ldl -lcsv -rdynamic
+--- Build complete ---
+./bin/SiliconPostLife
+INFO: Initializing raylib 6.0
+INFO: Platform backend: DESKTOP (GLFW)
+INFO: Supported raylib modules:
+INFO:     > rcore:..... loaded (mandatory)
+INFO:     > rlgl:...... loaded (mandatory)
+INFO:     > rshapes:... loaded (optional)
+INFO:     > rtextures:. loaded (optional)
+INFO:     > rtext:..... loaded (optional)
+INFO:     > rmodels:... loaded (optional)
+INFO:     > raudio:.... loaded (optional)
+INFO: DISPLAY: Device initialized successfully 
+INFO:     > Display size: 1920 x 1080
+INFO:     > Screen size:  1920 x 1080
+INFO:     > Render size:  1920 x 1080
+INFO:     > Viewport offsets: 0, 0
+INFO: GLAD: OpenGL extensions loaded successfully
+INFO: GL: Supported extensions count: 324
+INFO: GL: OpenGL device information:
+INFO:     > Vendor:   AMD
+INFO:     > Renderer: AMD Radeon 660M (radeonsi, rembrandt, ACO, DRM 3.64, 6.18.33-1-lts)
+INFO:     > Version:  4.6 (Compatibility Profile) Mesa 26.1.1-arch1.2
+INFO:     > GLSL:     4.60
+INFO: GL: VAO extension detected, VAO functions loaded successfully
+INFO: GL: NPOT textures extension detected, full NPOT textures supported
+INFO: GL: DXT compressed textures supported
+INFO: GL: ETC2/EAC compressed textures supported
+INFO: PLATFORM: DESKTOP (GLFW - X11): Initialized successfully
+INFO: TEXTURE: [ID 1] Texture loaded successfully (1x1 | R8G8B8A8 | 1 mipmaps)
+INFO: TEXTURE: [ID 1] Default texture loaded successfully
+INFO: SHADER: [ID 1] Vertex shader compiled successfully
+INFO: SHADER: [ID 2] Fragment shader compiled successfully
+INFO: SHADER: [ID 3] Program shader loaded successfully
+INFO: SHADER: [ID 3] Default shader loaded successfully
+INFO: RLGL: Render batch vertex buffers loaded successfully in RAM (CPU)
+INFO: RLGL: Render batch vertex buffers loaded successfully in VRAM (GPU)
+INFO: RLGL: Default OpenGL state initialized successfully
+INFO: TEXTURE: [ID 2] Texture loaded successfully (128x128 | GRAY_ALPHA | 1 mipmaps)
+INFO: FONT: Default font loaded successfully (224 glyphs)
+INFO: SYSTEM: Working Directory: /home/treska/Silicon-Postlife
+INFO: TIMER: Target time per frame: 16.667 milliseconds
+error, scenes.inf not found
+loading level 0
+loading level 0
+loading level 0
+loading level 0
+loading level 0
+loading level 0
+loading level 0
+loading level 0
+loading level 0
+loading level 0
+loading level 0
+loading level 0
+loading level 0
+loading level 0
+loading level 0
+loading level 0
+loading level 0
+loading level 0
+loading level 0
+loading level 0
+loading level 0
+loading level 0
+loading level 0
+loading level 0
+loading level 0
+loading level 0
+loading level 0
+loading level 0
+loading level 0
+loading level 0
+loading level 0
+loading level 0
+loading level 0
+INFO: TEXTURE: [ID 2] Unloaded texture data from VRAM (GPU)
+INFO: SHADER: [ID 3] Default shader unloaded successfully
+INFO: TEXTURE: [ID 1] Default texture unloaded successfully
+INFO: Window closed successfully

@@ -33,14 +33,14 @@ void testRender(int *levelN, Camera3D *cam) {
     }
 	
     EndMode3D();
-	/*
+	
     BeginMode2D(camera2d);
-    
+    /*
     char str[20];
     sprintf(str, "%d", GetFPS());
     DrawText(str, 20, 20, 10, GREEN);
-	EndMode2D();
 	*/
+	EndMode2D();
 }
 
 __attribute__((visibility("default"))) Scene test = {

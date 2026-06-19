@@ -21,8 +21,11 @@
 #include <stdlib.h>
 #include <math.h>
 #include <stdint.h>
+
 #include "c_cam_upd.h"
 #include "LevelLoader.h"
+#include "cheatcodes.h"
+#include "actor.h"
 
 #define T_FPS 60
 #define C_FOV 45.0f
@@ -58,15 +61,20 @@ int main(void)
     DisableCursor();
     SetTargetFPS(T_FPS);
 	InitLevels();
+
+	actor Orphey = { 43, 20 };
+		
 	int CurrentLevel = 0;
+
     while (!WindowShouldClose())
     {
-        BeginDrawing();	
-        printf("%d\n", CurrentLevel);
-        ClearBackground(BLACK);
-	       	LoadLevel(&CurrentLevel,&camera);
+		scan_char(&CurrentLevel, &camera, &Orphey);
+		BeginDrawing();
+		ClearBackground(BLACK);
+    	 LoadLevel(&CurrentLevel, &camera);
+		BeginDrawing();
         EndDrawing();
-    }
+    }	
     CloseWindow();
     return 0;
 }

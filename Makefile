@@ -16,7 +16,9 @@ LIBS = -lraylib -lm -lpthread -ldl -lcsv -rdynamic
 prepare:
 	@mkdir -p $(BUILDDIR)
 	@mkdir -p $(BINDIR)/scenes
-	@cp $(SRCDIR)/scenes/scenes.inf $(BINDIR)/scenes/ 2>/dev/null || true
+	@mkdir -p $(BINDIR)/res
+	@cp $(SRCDIR)/scenes/scenes.inf $(BINDIR)/scenes/
+	@cp -r $(SRCDIR)/res $(BINDIR)/res
 
 $(BUILDDIR)/%.o: $(SRCDIR)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@

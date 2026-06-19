@@ -11,10 +11,6 @@ static bool FontLoaded = false;
 
 
 void  MRender (int *levelN, Camera3D *cam) {
-	if (!FontLoaded) {
-		customFont = LoadFontEx("./res/fonts/ShareTechMono-Regular/ShareTechMono-Regular.ttf", 32, NULL, 0);
-		FontLoaded = true;
-	}
     ClearBackground(BLACK);
 	DrawText("press space to connect", screenWidth / 2 - MeasureText("press space to connect", GetScreenHeight()/35) / 2, 3 * screenHeight / 4, 40, WHITE);
 	SetTextureFilter(customFont.texture, TEXTURE_FILTER_BILINEAR);

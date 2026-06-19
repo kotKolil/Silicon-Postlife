@@ -11,7 +11,7 @@ static const int  levelMax = 7;
 Scene *scenes = NULL;
 
 void LoadLevel(int *levelCurrent, Camera3D *camera) {
-    printf("loading level %d\n", *levelCurrent);
+    //printf("loading level %d\n", *levelCurrent);
 	scenes[*levelCurrent].render( levelCurrent, camera);
 }
 
