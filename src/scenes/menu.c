@@ -6,57 +6,56 @@
 
 
 int screenTextDelta(char text[], int font_size, bool dim);
+    
+void MRender(int *levelN, Camera3D *cam) {
+    const char* menu[] = {
+        "start",
+        "options",
+        "quit"
+    };
 
-void  MRender (int *levelN, Camera3D *cam) {
+	static int option = 1;
     ClearBackground(BLACK);
-	DrawText(
-		"Silicon Postlife",
-			screenTextDelta("Silicon Postlife", 100, true) / 2,
-				screenTextDelta("Silicon Postlife", 100, false) / 2,
-						100,
-							GREEN
-								);
+    
+    int font_size = (GetScreenHeight() >> 4) - 11;
+    if (font_size < 10) font_size = 10;
 
-	int startX = GetScreenWidth() / 6;
-	int startY = (screenTextDelta("start", 50, false) / 2) + startY;
+    DrawText(
+        "Silicon Postlife",
+        screenTextDelta("Silicon Postlife", font_size << 2, true) >> 1,
+        screenTextDelta("Silicon Postlife", font_size << 2, false) >> 1,
+        font_size << 2,
+        GREEN
+    );
 
-	int optionsX = 100;
-	int optionsY = startY + 120; 
-	int quitX = 100;
+    int startX = GetScreenWidth() / 6;
+    int startY = (screenTextDelta("start", font_size, true) >> 3) + (GetScreenHeight() >> 1);
+    int spacing = 50 + (50 >> 2);
 
-	int quitY = optionsY + 120;
-	DrawText("start", startX, startY, 50, GREEN);
-	DrawRectangleLines(
-	    startX - 30, 
-	    startY - 15, 
-	    MeasureText("start", 50) + 60, 
-	    90, 
-	    RED
-	);
+    int num_options = sizeof(menu) / sizeof(menu[0]);
 
+    for (int i = 0; i < num_options; i++) {
+        DrawText(menu[i], startX, startY + (spacing * i), font_size, GREEN);
+    }
 
-	DrawText("options", startX, startY + 200, 50, GREEN);
-	DrawRectangleLines(
-	    startX - 30, 
-	    startY - 185, 
-	    MeasureText("options", 50) + 60, 
-	    90, 
-	    RED
-	);
+	DrawText(">", startX - (font_size << 1), startY + (spacing * (option - 1)), font_size, GREEN);
 
-	DrawText("quit", startX, startY + 300, 50, GREEN);
-	DrawRectangleLines(
-	    startX - 30, 
-	    startY - 285, 
-	    MeasureText("quit", 50) + 60, 
-	    90, 
-	    RED
-	);
-
+    if (IsKeyPressed(KEY_ENTER) || IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+        if (option == 1) {
+            (*levelN)++;
+        }
+        else if (option == 2) {
+        	//enter here number of options scene
+        }
+        else if (option == 3) {
+        	CloseWindow();
+        }
+    }
+	if (IsKeyPressed(KEY_UP))   option--;
+	if (IsKeyPressed(KEY_DOWN)) option++;
 	
-	if ( IsKeyPressed(KEY_SPACE) )  {
-		(*levelN)++; 
-	}
+	if (option < 1) option = 3;
+	if (option > 3) option = 1;
 }
 
 __attribute__((visibility("default"))) Scene menu =  { 

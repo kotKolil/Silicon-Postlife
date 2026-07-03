@@ -68,11 +68,11 @@ int main(void)
 
     while (!WindowShouldClose())
     {
-		scan_char(&CurrentLevel, &camera, &Orphey);
 		BeginDrawing();
 		ClearBackground(BLACK);
     	 LoadLevel(&CurrentLevel, &camera);
 		BeginDrawing();
+		scan_char(&CurrentLevel, &camera, &Orphey);
         EndDrawing();
     }	
     CloseWindow();

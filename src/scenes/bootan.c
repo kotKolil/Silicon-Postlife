@@ -7,8 +7,9 @@
 #define LOGS_COUNT (sizeof(boot_logs) / sizeof(boot_logs[0]))
 
 void  BRender (int *levelN, Camera3D *cam) {
+	int font_size = (GetScreenHeight() >> 4) - 11;
 	static const char *boot_logs[] = {
-		"1991.03.04 03:32:43 [OK] System V started",
+		"1991.03.04 03:32:43 [OK] NETDive System V started",
 		"1991.03.04 03:32:43 [0K] device /dev/serial inited",
 		"1991.03.04 03:32:43 [ERROR] wrong checksum 0x23F",
 		"1991.03.04 03:32:44 [OK] cheksum test complete",
@@ -42,13 +43,13 @@ void  BRender (int *levelN, Camera3D *cam) {
 	}
 	for (int i = 0; i < VisibleLines; i++) {
 	    if (strstr(boot_logs[i], "[ERROR]") != NULL) {
-			DrawText(boot_logs[i], 40, 90 + (i * 24), 20, RED);
-	    }
+			DrawText(boot_logs[i], font_size, 90 + (i * 24), 20, RED);
+	    }	
 	    else if (strstr(boot_logs[i], "[WARN]") != NULL) {
-	    	DrawText(boot_logs[i], 40, 90 + (i * 24), 20, YELLOW);
+	    	DrawText(boot_logs[i], font_size, 90 + (i * 24), 20, YELLOW);
 	    }
 	    else {
-	    	DrawText(boot_logs[i], 40, 90 + (i * 24), 20, GREEN);
+	    	DrawText(boot_logs[i], font_size, 90 + (i * 24), 20, GREEN);
 	    }
 	}
 	if ( GetKeyPressed() && VisibleLines == LOGS_COUNT )  {
